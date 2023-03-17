@@ -3,7 +3,7 @@ import justpy as jp
 
 @jp.SetRoute("/")   # creates a route with a decorator
 def homepage():
-    wp = jp.WebPage()   # instantiate a WebPage instance
+    wp = jp.QuasarPage(tailwind=True)   # instantiate a QuasarPage (Vue.js) instance for increased functionality
 
     # 'classes' -
     # add styling as tailwind css (need space after split classes lines)
@@ -27,10 +27,10 @@ def homepage():
     # Add a calculate button to div2
     # Set the click event handler to the sum_up functio
     # Pass inputs 1 + 2 from form to the button
-    jp.Button(a=div2, text="Calculate", click=sum_up, input_1=input_1, input_2=input_2,
-              classes="border border-blue-500 m-2 py-1 px-4 rounded "
-              "text-blue-600 hover:bg-red-500 hover:text-white",
-              d=d_output)  # passes result from sum_up to d_output
+    # Updated to a Quasar button + Quasar properties
+    jp.QBtn(a=div2, round=True, color="primary", icon="shopping_cart",  text="Calculate",
+            click=sum_up, input_1=input_1, input_2=input_2, d=d_output)
+    #  passes result from sum_up to d_output
     jp.Div(a=div2, text="I am a cool interactive div!",
            mouseenter=mouse_enter, mouseleave=mouse_leave,
            classes="hover:bg-red-500")
