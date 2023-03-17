@@ -21,10 +21,6 @@ def homepage():
     # assign an output variable to a div + receive d.text from button
     d_output = jp.Div(a=div1, text="Result goes here...", classes="text-gray-600")
 
-    jp.Div(a=div1, text="Just another div...", classes="text-gray-600")
-    jp.Div(a=div1, text="Yet another div...", classes="text-gray-600")
-
-
     # organise second layer of elements into a grid
     div2 = jp.Div(a=page_div, classes="grid grid-cols-2 gap-4")
 
@@ -35,7 +31,9 @@ def homepage():
               classes="border border-blue-500 m-2 py-1 px-4 rounded "
               "text-blue-600 hover:bg-red-500 hover:text-white",
               d=d_output)  # passes result from sum_up to d_output
-    jp.Div(a=div2, text="I am a cool interactive div!", classes="text-gray-600")
+    jp.Div(a=div2, text="I am a cool interactive div!",
+           mouseenter=mouse_enter, mouseleave=mouse_leave,
+           classes="hover:bg-red-500")
     return wp
 
 
@@ -46,6 +44,14 @@ def sum_up(widget, msg):
     # pass the result back to the button
     widget.d.text = sum_result
 
+
+def mouse_enter(widget, msg):
+    # event handlers to change div text
+    widget.text = "A mouse entered the house!"
+
+
+def mouse_leave(widget, msg):
+    widget.text = "The mouse left!"
 
 # jp.Route("/", homepage)  # creates a route with a function
 
