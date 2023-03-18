@@ -4,9 +4,23 @@ import justpy as jp
 class Home:
     path = "/"
 
-    def serve(self):
+    @classmethod
+    def serve(cls, req):
         wp = jp.QuasarPage(tailwind=True)
-        page_div = jp.Div(a=wp, classes="bg-gray-200 h-screen")
+
+        layout = jp.QLayout(a=wp, view="hHh lpR fFf")
+        header = jp.QHeader(a=layout)
+        toolbar = jp.QToolbar(a=header)
+
+        drawer = jp.QDrawer(a=layout, show_if_above=True, v_mode="left",
+                            bordered=True)
+        jp.QBtn(a=toolbar, dense=True, flat=True, round=True, icon="menu",
+                click=cls.move_drawer, drawer=drawer)
+        jp.QToolbarTitle(a=toolbar, text="Instant Dictionary")
+
+        container = jp.QPageContainer(a=layout)
+
+        page_div = jp.Div(a=container, classes="bg-gray-200 h-screen p-2")
         jp.Div(a=page_div,text="This is the Home page!",
                classes="text-4xl ,m-2")
         jp.Div(a=page_div, text="""
@@ -23,3 +37,8 @@ The garden became a popular gathering place for the woodland creatures, who marv
 And so, the enchanting village and its inhabitants carried on, living in harmony with nature and cherishing the connections they shared. Through love, cooperation, and understanding, they created a world full of joy and wonder, where every creature had a place to call home.    
         """, classes="text-lg")
         return wp
+
+    @staticmethod
+    def move_drawer(widget, msg):
+        if widget.drawer.value:
+            widget.drawer.value = False
