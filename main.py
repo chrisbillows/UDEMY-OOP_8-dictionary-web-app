@@ -20,12 +20,12 @@ imports = list(globals().values())
 
 for obj in imports:
     if inspect.isclass(obj):
-        if hasattr(obj, 'path') and issubclass(obj, page.Page):
+        if hasattr(obj, "path") and issubclass(obj, page.Page):
             jp.Route(obj.path, obj.serve)
 
     # filters out non-classes
     # filters only objects with a path attribute
-        #  i.e. our page classes
+    #  i.e. our page classes
     # Add hasattr filter - so page.Page class not filtered
 
 
@@ -36,4 +36,3 @@ for obj in imports:
 # jp.Route(Home.path, Home.serve)
 
 jp.justpy()
-
