@@ -1,4 +1,5 @@
 import justpy as jp
+from webapp import layout
 
 
 class Home:
@@ -8,28 +9,8 @@ class Home:
     def serve(cls, req):
         wp = jp.QuasarPage(tailwind=True)
 
-        layout = jp.QLayout(a=wp, view="hHh lpR fFf")
-        header = jp.QHeader(a=layout)
-        toolbar = jp.QToolbar(a=header)
-
-        drawer = jp.QDrawer(a=layout, show_if_above=True, v_mode="left",
-                            bordered=True)
-
-        scroller = jp.QScrollArea(a=drawer, classes="fit")
-        qlist = jp.QList(a=scroller)
-        a_classes = "p-2 m-2 text-lg text-blue-400 hover:text-blue-700"
-        jp.A(a=qlist, text="Home", href="/home", classes=a_classes)
-        jp.Br(a=qlist)
-        jp.A(a=qlist, text="Dictionary", href="/dictionary", classes=a_classes)
-        jp.Br(a=qlist)
-        jp.A(a=qlist, text="About", href="/about", classes=a_classes)
-        jp.Br(a=qlist)
-
-        jp.QBtn(a=toolbar, dense=True, flat=True, round=True, icon="menu",
-                click=cls.move_drawer, drawer=drawer)
-        jp.QToolbarTitle(a=toolbar, text="Instant Dictionary")
-
-        container = jp.QPageContainer(a=layout)
+        lay = layout.DefaultLayout(a=wp)
+        container = jp.QPageContainer(a=lay)
 
         page_div = jp.Div(a=container, classes="bg-gray-200 h-screen p-2")
         jp.Div(a=page_div,text="This is the Home page!",
@@ -48,8 +29,3 @@ The garden became a popular gathering place for the woodland creatures, who marv
 And so, the enchanting village and its inhabitants carried on, living in harmony with nature and cherishing the connections they shared. Through love, cooperation, and understanding, they created a world full of joy and wonder, where every creature had a place to call home.    
         """, classes="text-lg")
         return wp
-
-    @staticmethod
-    def move_drawer(widget, msg):
-        if widget.drawer.value:
-            widget.drawer.value = False
