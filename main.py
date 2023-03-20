@@ -35,4 +35,4 @@ for obj in imports:
 # jp.Route(Dictionary.path, Dictionary.serve)
 # jp.Route(Home.path, Home.serve)
 
-jp.justpy()
+jp.justpy(host='127.0.0.1', port=8001)

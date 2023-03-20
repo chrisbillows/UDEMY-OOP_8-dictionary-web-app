@@ -1,4 +1,6 @@
 import justpy as jp
+import requests as requests
+
 from definition import Definition
 from webapp import layout
 from webapp import page
@@ -42,5 +44,8 @@ class Dictionary(page.Page):
 
     @staticmethod  # Static method - behaves like a normal function. Inside class for organisational purposes.
     def get_definition(widget, msg):
-        definition_of_users_word = Definition(widget.value).get()
-        widget.outputdiv.text = "".join(definition_of_users_word)
+
+        req = requests.get(f"http://127.0.0.1:8000/api?w={widget.value}")
+        data = req.json()
+
+        widget.outputdiv.text = " ".join(data['definition'])
